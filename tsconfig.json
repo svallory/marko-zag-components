@@ -1,5 +1,15 @@
 {
-  "include": ["src/**/*", ".storybook/**/*"],
+  "include": [
+    "src/components/Tree/**/*.marko",
+    "src/components/Tree/**/*.json",
+    "src/components/Tree/types.ts"
+  ],
+  "exclude": [
+    ".storybook/**/*",
+    "**/examples",
+    "**/*.stories.ts",
+    "../../**/node_modules/**"
+  ],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "incremental": true,
@@ -7,15 +17,16 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "noImplicitOverride": true,
+    "noImplicitAny": false,
     "noUnusedLocals": true,
     "outDir": "dist",
     "resolveJsonModule": true,
-    "rootDir": ".",
+    "rootDir": "src",
     "skipLibCheck": true,
     "strict": true,
     "target": "ESNext",
     "tsBuildInfoFile": "dist/tsconfig.tsbuildinfo",
-    "types": ["vitest/globals", "@testing-library/jest-dom/vitest"],
+    "types": ["vitest/globals", "@testing-library/jest-dom/vitest", "@zag-js/types"],
     "verbatimModuleSyntax": true,
   },
 }

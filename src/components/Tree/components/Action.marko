@@ -1,0 +1,10 @@
+export type Input<TActionContext> = {
+  renderBody?: Marko.Body<[TActionContext]>;
+  classes?: string | string[]
+  onClick?: (target: PointerEvent) => void;
+  context: TActionContext
+};
+const/classes=[...(input.classes || [])]
+
+div class=classes onClick=input.onClick
+  <${input.renderBody}=[input.context]/>

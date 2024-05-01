@@ -1,0 +1,24 @@
+import type { Api, ItemProps, ItemState } from "@zag-js/tree-view";
+import { type Input as ActionInput } from "<Action>";
+
+export type Input = ( {
+    itemProps: ItemProps;
+    classes?: string | string[]
+    name?:string
+    renderBody?: Marko.Body;
+    actions?: Marko.RepeatableAttrTag<ActionInput<ItemState>> | ActionInput<ItemState>[];
+}
+);
+
+<const/actions=[...(input.actions || [])]/>
+<const/classes=[...(input.classes || [])]/>
+
+<context|{ api }: {api: Api}| from="Tree" >
+    <li class=classes ...api.getItemProps(input.itemProps)>
+        <for|action| of=actions>
+            <const/itemState=api.getItemState(input.itemProps)/>
+            <Action ...action context=itemState />
+        </for>
+        ${input.name}
+    </li>
+</context>

@@ -1,0 +1,47 @@
+import type { Api, BranchProps, BranchState } from "@zag-js/tree-view";
+import { type Input as ActionInput } from "<Action>";
+import { type Input as ItemInput } from "<Item>";
+
+static type InputProps = {
+    branchProps: BranchProps;
+    classes?: string | string[]
+    name?: string;
+    renderBody?: Marko.Body;
+    branches?: Marko.RepeatableAttrTag<Input> | Input[]
+    items?: Marko.RepeatableAttrTag<ItemInput> |  ItemInput[]
+    actions?: Marko.RepeatableAttrTag<ActionInput<BranchState>> | ActionInput<BranchState>[]
+};
+
+
+<const/branches=[...(input.branches || [])]/>
+<const/items=[...(input.items || [])]/>
+<const/actions=[...(input.actions || [])]/>
+<const/classes=[...(input.classes || [])]/>
+
+export type Input = (InputProps & { value: string }) | InputProps;
+
+<context|{ api }: {api: Api}| from="Tree" >
+    <li class=classes ...api.getBranchProps(input.branchProps)>
+        <div ...api.getBranchControlProps(input.branchProps)>
+            <for|action| of=actions>
+                <const/branchState=api.getBranchState(input.branchProps)/>
+                <Action ...action context=branchState />
+            </for>
+
+            <span ...api.getBranchTextProps(input.branchProps)>
+                ${input.name}
+            </span>
+        </div>
+        <ul ...api.getBranchContentProps(input.branchProps)>
+            <${input.renderBody}/>
+
+            <for|item| of=branches>
+                <Branch ...item key=(item.branchProps.value)/>
+            </for>
+
+            <for|item| of=items>
+                <Item ...item key=(item.itemProps.value)/>
+            </for>
+        </ul>
+    </li>
+</context>

@@ -1,0 +1,47 @@
+import { machine as createTreeMachine, connect, type Context  } from "@zag-js/tree-view";
+import { normalizeProps } from "marko-zag";
+import { type Input as BranchInput } from "<Branch>";
+import { type Input as ItemInput } from "<Item>";
+
+export type Input = (Context & {
+  id: string;
+  classes?: string | string[];
+  renderBody?: Marko.Body;
+  branches?: Marko.RepeatableAttrTag<BranchInput> | BranchInput[];
+  items?: Marko.RepeatableAttrTag<ItemInput> |  ItemInput[];
+}
+);
+
+<const/branches=[...(input.branches || [])]/>
+<const/items=[...(input.items || [])]/>
+<const/classes=[...(input.classes || [])]/>
+
+<const/machine=(
+  () => {
+    return createTreeMachine({
+      id: input.id,
+    });
+  }
+)/>
+
+<use-machine/[machineState, send] machine=machine as any />
+
+<const/api=(
+  connect(machineState as any, send, normalizeProps as any)
+)/>
+
+<context api=api>
+  <div class=classes ...api.rootProps>
+    <ul ...api.treeProps>
+      <for|branch| of=branches>
+        <Branch ...branch key=(branch.branchProps.value)/>
+      </for>
+
+      <for|item| of=items>
+        <Item ...item key=(item.itemProps.value)/>
+      </for>
+    </ul>
+  </div>
+</context>
+
+<return=api/>

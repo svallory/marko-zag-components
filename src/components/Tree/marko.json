@@ -1,5 +1,7 @@
 {
   "taglib-id": "Tree",
   "tags-dir": "./components",
-  "script-lang": "ts"
+  "@actions <action>[]": {
+    "type": "object"
+  }
 }

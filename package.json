@@ -4,6 +4,7 @@
   "description": "Marko library project with TypeScript",
   "license": "MIT",
   "type": "module",
+  "main": "marko.json",
   "files": [
     "dist",
     "marko.json",
@@ -14,7 +15,7 @@
     "@ci:build": "npm run build",
     "@ci:lint": "npm run lint",
     "@ci:test": "vitest run --coverage",
-    "build": "mtc -p tsconfig.build.json",
+    "build": "mtc",
     "clean": "rm -rf coverage dist node_modules/.{cache,vite,vitest}",
     "format": "eslint --format unix --fix .; stylelint --formatter unix --fix '**/*.css'; prettier . --write --log-level=warn",
     "lint": "mtc && eslint --format unix . && stylelint --formatter unix '**/*.css' && prettier . --check --log-level=warn",
@@ -23,13 +24,27 @@
     "storybook": "storybook dev",
     "test": "vitest"
   },
+  "dependencies": {
+    "@marko-tags/context": "^2.2.3",
+    "@marko-tags/portal": "^1.2.2",
+    "@zag-js/accordion": "^0.49.0",
+    "@zag-js/avatar": "^0.49.0",
+    "@zag-js/checkbox": "^0.49.0",
+    "@zag-js/combobox": "^0.49.0",
+    "@zag-js/dialog": "^0.49.0",
+    "@zag-js/menu": "^0.49.0",
+    "@zag-js/switch": "^0.49.0",
+    "@zag-js/tree-view": "^0.49.0",
+    "@zag-js/types": "^0.49.0",
+    "marko-zag": "^0.0.2"
+  },
   "devDependencies": {
     "@marko/compiler": "^5.34.6",
-    "@marko/tags-api-preview": "0.7.3",
-    "tsx": "^4.7.1",
+    "@marko/tags-api-preview": "0.7.5",
     "@marko/testing-library": "^6.1.5",
     "@marko/type-check": "^1.1.3",
     "@marko/vite": "^4.1.1",
+    "@storybook/addon-docs": "^7.6.12",
     "@storybook/addon-essentials": "^7.6.12",
     "@storybook/addon-interactions": "^7.6.12",
     "@storybook/marko": "^8.0.2",
@@ -49,28 +64,16 @@
     "prettier-plugin-marko": "^3.1.2",
     "prettier-plugin-packagejson": "^2.4.10",
     "react": "^18.2.0",
+    "rimraf": "^5.0.5",
     "storybook": "^7.6.12",
     "stylelint": "^16.2.0",
     "stylelint-config-standard": "^36.0.0",
+    "tsx": "^4.7.1",
     "typescript": "^5.3.3",
     "vite": "^5.0.12",
-    "vitest": "^1.2.2",
-    "@storybook/addon-docs": "^7.6.12"
+    "vitest": "^1.2.2"
   },
-  "main": "marko.json",
   "peerDependencies": {
     "marko": ">= 5.22.0"
-  },
-  "dependencies": {
-    "@marko-tags/portal": "^1.2.2",
-    "@zag-js/accordion": "^0.36.2",
-    "@zag-js/avatar": "^0.36.2",
-    "@zag-js/checkbox": "^0.34.0",
-    "@zag-js/combobox": "^0.36.2",
-    "@zag-js/dialog": "^0.36.2",
-    "@zag-js/menu": "^0.36.2",
-    "@zag-js/switch": "^0.36.2",
-    "@zag-js/tree-view": "^0.38.1",
-    "marko-zag": "0.0.2"
   }
 }
